@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEC_Class module &mdash; SpEC analysis 0.01 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6ca3c713"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SpEC analysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">SEC_Class module</a><ul>
+<li><a class="reference internal" href="#SEC_Class.Co_plot_DOD_and_CV"><code class="docutils literal notranslate"><span class="pre">Co_plot_DOD_and_CV()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.Downsample_Potential"><code class="docutils literal notranslate"><span class="pre">Downsample_Potential()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.Downsample_Wavelength"><code class="docutils literal notranslate"><span class="pre">Downsample_Wavelength()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC"><code class="docutils literal notranslate"><span class="pre">SpEC</span></code></a><ul>
+<li><a class="reference internal" href="#SEC_Class.SpEC.Calibrate_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.Calibrate_Andorspec()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.Downsample_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.Downsample_spec_scans()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.generate_interpolation_function"><code class="docutils literal notranslate"><span class="pre">SpEC.generate_interpolation_function()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.populate_CV_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_CV_scans()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.populate_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_spec_scans()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.read_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.read_Andorspec()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.SpEC.read_CV"><code class="docutils literal notranslate"><span class="pre">SpEC.read_CV()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#SEC_Class.calculateDOD"><code class="docutils literal notranslate"><span class="pre">calculateDOD()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.change_directory_to_new_expt"><code class="docutils literal notranslate"><span class="pre">change_directory_to_new_expt()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.normalise_DOD"><code class="docutils literal notranslate"><span class="pre">normalise_DOD()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.plot_DOD"><code class="docutils literal notranslate"><span class="pre">plot_DOD()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.sawtooth2"><code class="docutils literal notranslate"><span class="pre">sawtooth2()</span></code></a></li>
+<li><a class="reference internal" href="#SEC_Class.select_file_path"><code class="docutils literal notranslate"><span class="pre">select_file_path()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SpEC analysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SEC_Class module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/SEC_Class.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-SEC_Class">
+<span id="sec-class-module"></span><h1>SEC_Class module<a class="headerlink" href="#module-SEC_Class" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.Co_plot_DOD_and_CV">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Co_plot_DOD_and_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Title:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_potential:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_direction:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_option=&lt;matplotlib.colors.ListedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Co_plot_DOD_and_CV" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and plots it. The function returns a plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.Downsample_Potential">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Downsample_Potential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SpEC_scans_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Downsample_Potential" title="Link to this definition"></a></dt>
+<dd><p>This function takes in the a single dataframe from spec_cycles. It averages rows that are within the voltage resolution of one another
+The function returns a downsampled dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.Downsample_Wavelength">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Downsample_Wavelength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SpEC_scans_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wavelength_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Downsample_Wavelength" title="Link to this definition"></a></dt>
+<dd><p>This function takes in the a single dataframe from spec_cycles. It averages rows that are within the voltage resolution of one another
+The function returns a downsampled dataframe</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SEC_Class.SpEC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">SpEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Andorspec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Andorspec_calibrated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_scans</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_scans_downsampled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV_scans</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.Calibrate_Andorspec">
+<span class="sig-name descname"><span class="pre">Calibrate_Andorspec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.Calibrate_Andorspec" title="Link to this definition"></a></dt>
+<dd><p>This function combines the cycle_calculator and scan_direction_calculator code. It takes in a SpEC object
+it returns the Andorspec_calibrated attribute of the SpEC object. This is calculated by first trimming the
+Andorspec attribute of the SpEC object to the minimum time value of the CV attribute. The function then
+calculates the cycle and scan direction of the spectral data. These are added as collumns to the Andorspec_calibrated object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.Downsample_spec_scans">
+<span class="sig-name descname"><span class="pre">Downsample_spec_scans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wavelength_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transpose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.Downsample_spec_scans" title="Link to this definition"></a></dt>
+<dd><p>This function takes in the spec_scans attribute of the SpEC object. It loops through the dictionary of dictionaries
+and calls the Downsample_Potential and Downsample_Wavelength functions on each dataframe in the dictionary. The downsampled
+dataframes are then stored in the spec_scans_downsampled attribute of the SpEC object as a dictionary of dictionaries like the
+spec_scans attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.generate_interpolation_function">
+<span class="sig-name descname"><span class="pre">generate_interpolation_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startin_samp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.generate_interpolation_function" title="Link to this definition"></a></dt>
+<dd><p>This function reads the CV attribute of self. It reads the collumns
+‘t_s’   and ‘Ewe_V’ and fits these functions to Sawtooth2. It populates the
+interpolation attribute of self with the interpolation function. This can
+then be used to convert time to voltage in spectral data. If the fit is poor
+the user can adjust the starting amplitude and phase, most likley the issue
+is the amplitude - change this from -1 to 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.populate_CV_scans">
+<span class="sig-name descname"><span class="pre">populate_CV_scans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.populate_CV_scans" title="Link to this definition"></a></dt>
+<dd><p>like populate spec scans this function uses the derivative of the interpolation function to determine the scan direction
+of the CV data. It then groups the CV data by cycle and scan direction. It then populates the CV_scans attribute of the SpEC object
+with a dictionary of dictionaries. The first key is the cycle number, the second key is the scan direction. The value is the dataframe
+of the CV data for that cycle and scan direction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.populate_spec_scans">
+<span class="sig-name descname"><span class="pre">populate_spec_scans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.populate_spec_scans" title="Link to this definition"></a></dt>
+<dd><p>This function reads the Andorspec_calibrated attribute of the SpEC object. It groups the data by cycle
+and then by scan direction. It then populates the spec_scans attribute of the SpEC object with a dictionary of dictionaries.
+The first key is the cycle number, the second key is the scan direction. The value is the dataframe of the spectral data
+for that cycle and scan direction. You may need to correct for anomalies in the interpolation function using the
+remove_scan_outliers function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.read_Andorspec">
+<span class="sig-name descname"><span class="pre">read_Andorspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Andorspec_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.read_Andorspec" title="Link to this definition"></a></dt>
+<dd><p>This function reads the Andorspec pkl file
+as a datadrame. As the spectral times overrun the CV times
+this function removes the spectral data that is not in the CV
+This dataframe then populates the Andorspec attribute of self</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SEC_Class.SpEC.read_CV">
+<span class="sig-name descname"><span class="pre">read_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CV_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.read_CV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.calculateDOD">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">calculateDOD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SpEC_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#SEC_Class.SpEC" title="SEC_Class.SpEC"><span class="pre">SpEC</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Referance_potential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_strength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.calculateDOD" title="Link to this definition"></a></dt>
+<dd><p>This function calculates Delta OD for a single cycle and scan direction. If the referance potential
+given is not present the nearest potential is used. The function returns a dataframe. If smooth_strength is set to 0
+the function returns the raw data. If smooth_strength is an odd integer the function returns the data smoothed by a golay function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.change_directory_to_new_expt">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">change_directory_to_new_expt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.change_directory_to_new_expt" title="Link to this definition"></a></dt>
+<dd><p>If you keep filenames constant and specifically name folders you can set the        directory to the new folder by selecting a file in that folder</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.normalise_DOD">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">normalise_DOD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.normalise_DOD" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and normalises it to the maximum value of each collumn. The function returns a normalised DOD dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.plot_DOD">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">plot_DOD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_potential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.plot_DOD" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and plots it. The function returns a plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.sawtooth2">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">sawtooth2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.sawtooth2" title="Link to this definition"></a></dt>
+<dd><p>This function generates a sawtooth wave with the following parameters:
+Once, fitted is used to generate an interpolation function from t–&gt;V.
+time: time array
+amplitude: amplitude of the wave
+period: period of the wave
+phase: phase of the wave</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.select_file_path">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">select_file_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.select_file_path" title="Link to this definition"></a></dt>
+<dd><p>This is the base function to select a file, it opens a prompt and returns
+a path obect.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Benj.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
