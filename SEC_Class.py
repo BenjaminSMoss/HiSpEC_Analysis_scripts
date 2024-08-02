@@ -70,7 +70,7 @@ class SpEC:
         THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etc
         THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etc
         THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etcss
-        AASFLASFKOEKORKEOPRKW
+        BBBBBBVBBBGQEUHJDGHHJKQGUH
 
         inputs: self
         outputs: self.interpolation 
