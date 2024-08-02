@@ -20,7 +20,8 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="SpEC-class" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,32 +43,35 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">SEC_Class module</a><ul>
-<li><a class="reference internal" href="#SEC_Class.Co_plot_DOD_and_CV"><code class="docutils literal notranslate"><span class="pre">Co_plot_DOD_and_CV()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.Downsample_Potential"><code class="docutils literal notranslate"><span class="pre">Downsample_Potential()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.Downsample_Wavelength"><code class="docutils literal notranslate"><span class="pre">Downsample_Wavelength()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC"><code class="docutils literal notranslate"><span class="pre">SpEC</span></code></a><ul>
-<li><a class="reference internal" href="#SEC_Class.SpEC.Calibrate_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.Calibrate_Andorspec()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.Downsample_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.Downsample_spec_scans()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.generate_interpolation_function"><code class="docutils literal notranslate"><span class="pre">SpEC.generate_interpolation_function()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.populate_CV_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_CV_scans()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.populate_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_spec_scans()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.read_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.read_Andorspec()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.SpEC.read_CV"><code class="docutils literal notranslate"><span class="pre">SpEC.read_CV()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">SpEC-class</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SEC_Class module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.Co_plot_DOD_and_CV"><code class="docutils literal notranslate"><span class="pre">Co_plot_DOD_and_CV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.Downsample_Potential"><code class="docutils literal notranslate"><span class="pre">Downsample_Potential()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.Downsample_Wavelength"><code class="docutils literal notranslate"><span class="pre">Downsample_Wavelength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.SpEC"><code class="docutils literal notranslate"><span class="pre">SpEC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.Calibrate_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.Calibrate_Andorspec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.Downsample_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.Downsample_spec_scans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.generate_interpolation_function"><code class="docutils literal notranslate"><span class="pre">SpEC.generate_interpolation_function()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.populate_CV_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_CV_scans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.populate_spec_scans"><code class="docutils literal notranslate"><span class="pre">SpEC.populate_spec_scans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.read_Andorspec"><code class="docutils literal notranslate"><span class="pre">SpEC.read_Andorspec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SEC_Class.SpEC.read_CV"><code class="docutils literal notranslate"><span class="pre">SpEC.read_CV()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#SEC_Class.calculateDOD"><code class="docutils literal notranslate"><span class="pre">calculateDOD()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.change_directory_to_new_expt"><code class="docutils literal notranslate"><span class="pre">change_directory_to_new_expt()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.normalise_DOD"><code class="docutils literal notranslate"><span class="pre">normalise_DOD()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.plot_DOD"><code class="docutils literal notranslate"><span class="pre">plot_DOD()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.sawtooth2"><code class="docutils literal notranslate"><span class="pre">sawtooth2()</span></code></a></li>
-<li><a class="reference internal" href="#SEC_Class.select_file_path"><code class="docutils literal notranslate"><span class="pre">select_file_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.calculateDOD"><code class="docutils literal notranslate"><span class="pre">calculateDOD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.change_directory_to_new_expt"><code class="docutils literal notranslate"><span class="pre">change_directory_to_new_expt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.normalise_DOD"><code class="docutils literal notranslate"><span class="pre">normalise_DOD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.plot_DOD"><code class="docutils literal notranslate"><span class="pre">plot_DOD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.sawtooth2"><code class="docutils literal notranslate"><span class="pre">sawtooth2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.select_file_path"><code class="docutils literal notranslate"><span class="pre">select_file_path()</span></code></a></li>
 </ul>
 </li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -82,6 +86,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">SpEC-class</a></li>
       <li class="breadcrumb-item active">SEC_Class module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/SEC_Class.rst.txt" rel="nofollow"> View page source</a>
@@ -97,14 +102,33 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SEC_Class.Co_plot_DOD_and_CV">
 <span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Co_plot_DOD_and_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Title:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_potential:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_direction:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_option=&lt;matplotlib.colors.ListedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Co_plot_DOD_and_CV" title="Link to this definition"></a></dt>
-<dd><p>This function takes in a DOD dataframe and plots it. The function returns a plot</p>
+<dd><p>This function can be used to make inital co-plots of DOD and linear sweep data. It generates a plot.</p>
+<p>args: 
+DOD_dataframe: pd.DataFrame - a single dataframe from the spec_scans_downsampled attribute of the SpEC object
+CV_dataframe: pd.DataFrame - a single dataframe from the CV_scans attribute of the SpEC object. Must be the same 
+cycle and scan direction as the chosen DOD_dataframe
+Title: str - the title of the plot
+y_max: float - the maximum value of the y axis
+y_min: float - the minimum value of the y axis
+x_max: float - the maximum value of the x axis
+x_min: float - the minimum value of the x axis
+reference_potential: str - the reference potential of the DOD data. This only modifies the y axis label
+scan_direction: str - the scan direction of the CV data. This only modifies the title
+cmap_option: cmc colormap - the colormap used to plot the DOD data. You can choose any colormap from cmcrameri.cm</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SEC_Class.Downsample_Potential">
 <span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Downsample_Potential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SpEC_scans_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Downsample_Potential" title="Link to this definition"></a></dt>
-<dd><p>This function takes in the a single dataframe from spec_cycles. It averages rows that are within the voltage resolution of one another
+<dd><p>This is a helper function for the Downsample_spec_scans function. You can also use it on its own.</p>
+<p>This function takes in the a single dataframe from spec_cycles, for example spec_object.spec_cycles[0][‘Anodic’].
+It averages rows that are within the voltage resolution of one another.
 The function returns a downsampled dataframe</p>
+<p>Args:
+SpEC_scans_dataframe: pd.DataFrame
+voltage_resolution: float</p>
+<p>Returns:
+downsampled dataframe: pd.DataFrame</p>
 </dd></dl>
 
 <dl class="py function">
@@ -139,12 +163,14 @@ spec_scans attribute</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="SEC_Class.SpEC.generate_interpolation_function">
 <span class="sig-name descname"><span class="pre">generate_interpolation_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startin_samp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.SpEC.generate_interpolation_function" title="Link to this definition"></a></dt>
-<dd><p>This function reads the CV attribute of self. It reads the collumns
-‘t_s’   and ‘Ewe_V’ and fits these functions to Sawtooth2. It populates the
-interpolation attribute of self with the interpolation function. This can
+<dd><p>This function takes in self.CV. It reads the collumns
+‘t_s’   and ‘Ewe_V’ and fits these functions to Sawtooth2 (defined below). It populates the
+interpolation attribute of self with fitting parameters needed to interpolate with sawtooth2. This can
 then be used to convert time to voltage in spectral data. If the fit is poor
 the user can adjust the starting amplitude and phase, most likley the issue
 is the amplitude - change this from -1 to 1</p>
+<p>inputs: self
+outputs: self.interpolation</p>
 </dd></dl>
 
 <dl class="py method">
@@ -216,7 +242,9 @@ Once, fitted is used to generate an interpolation function from t–&gt;V.
 time: time array
 amplitude: amplitude of the wave
 period: period of the wave
-phase: phase of the wave</p>
+phase: phase of the wave (i.e. x offset)
+offset: Y offset of the wave</p>
+<p>returns: a voltage value or a voltage array</p>
 </dd></dl>
 
 <dl class="py function">
@@ -231,7 +259,9 @@ a path obect.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="SpEC-class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
