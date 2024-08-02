@@ -1,4 +1,4 @@
-furo==2023.9.29
+furo==2021.11.16
 alabaster==0.7.16
 Babel==2.11.0
 Bottleneck==1.3.7
@@ -36,7 +36,7 @@ scipy==1.13.1
 setuptools==69.5.1
 six==1.16.0
 snowballstemmer==2.2.0
-Sphinx==7.3.7
+Sphinx==4.0.0
 sphinx-rtd-theme==2.0.0
 sphinxcontrib-applehelp==1.0.2
 sphinxcontrib-devhelp==1.0.2
