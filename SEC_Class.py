@@ -66,7 +66,10 @@ class SpEC:
         interpolation attribute of self with fitting parameters needed to interpolate with sawtooth2. This can
         then be used to convert time to voltage in spectral data. If the fit is poor
         the user can adjust the starting amplitude and phase, most likley the issue
-        is the amplitude - change this from -1 to 1 THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etc
+        is the amplitude - change this from -1 to 1 
+        THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etc
+        THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etc
+        THIS IS A TEST WITH NO SPHINX BUILD COMMAND etc etcss
 
         inputs: self
         outputs: self.interpolation 
