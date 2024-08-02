@@ -7,14 +7,11 @@ from scipy import signal
 from scipy.signal import sawtooth
 import os
 from typing import Optional, Dict
-import numpy as np
 import tkinter as tk
 from tkinter import filedialog
 from pathlib import Path
 import cmcrameri.cm as cmc
 import matplotlib as mpl
-from scipy import signal
-from scipy.signal import sawtooth
 
 
 # to do - flip the plotting order in co-plot mode for the cathodic scan
@@ -72,7 +69,7 @@ class SpEC:
         is the amplitude - change this from -1 to 1
 
         inputs: self
-        outputs: self.interpolation
+        outputs: self.interpolation 
         """
 
         # catch if the CV attribute is empty
