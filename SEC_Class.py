@@ -64,12 +64,15 @@ class SpEC:
         self, startin_samp: float = 1, starting_phase: float = 0, starting_offset: float = 0
     ):
         """
-        This function reads the CV attribute of self. It reads the collumns
-        't_s'	and 'Ewe_V' and fits these functions to Sawtooth2. It populates the
-        interpolation attribute of self with the interpolation function. This can
+        This function takes in self.CV. It reads the collumns
+        't_s'	and 'Ewe_V' and fits these functions to Sawtooth2 (defined below). It populates the
+        interpolation attribute of self with fitting parameters needed to interpolate with sawtooth2. This can
         then be used to convert time to voltage in spectral data. If the fit is poor
         the user can adjust the starting amplitude and phase, most likley the issue
         is the amplitude - change this from -1 to 1
+
+        inputs: self
+        outputs: self.interpolation
         """
 
         # catch if the CV attribute is empty
@@ -414,14 +417,31 @@ def sawtooth2(time, amplitude, period, phase, offset):
     time: time array
     amplitude: amplitude of the wave
     period: period of the wave
-    phase: phase of the wave
+    phase: phase of the wave (i.e. x offset)
+    offset: Y offset of the wave
+
+    returns: a voltage value or a voltage array
     """
     return (amplitude * sawtooth((2 * np.pi * time) / (period) - phase, 0.5) + offset)
 
 
 def Downsample_Potential(SpEC_scans_dataframe, voltage_resolution: float):
-    """This function takes in the a single dataframe from spec_cycles. It averages rows that are within the voltage resolution of one another
-    The function returns a downsampled dataframe"""
+    """
+    This is a helper function for the Downsample_spec_scans function. You can also use it on its own.
+
+    This function takes in the a single dataframe from spec_cycles, for example spec_object.spec_cycles[0]['Anodic'].
+    It averages rows that are within the voltage resolution of one another.
+    The function returns a downsampled dataframe
+
+    Args:
+    SpEC_scans_dataframe: pd.DataFrame
+    voltage_resolution: float
+
+    Returns:
+    downsampled dataframe: pd.DataFrame
+    
+    
+    """
 
     all_spectra = SpEC_scans_dataframe
 
@@ -612,7 +632,23 @@ def Co_plot_DOD_and_CV(
     scan_direction: Optional[str] = None,
     cmap_option = cmc.roma,
 ):
-    """This function takes in a DOD dataframe and plots it. The function returns a plot"""
+    """This function can be used to make inital co-plots of DOD and linear sweep data. It generates a plot.
+
+    args: 
+    DOD_dataframe: pd.DataFrame - a single dataframe from the spec_scans_downsampled attribute of the SpEC object
+    CV_dataframe: pd.DataFrame - a single dataframe from the CV_scans attribute of the SpEC object. Must be the same 
+    cycle and scan direction as the chosen DOD_dataframe
+    Title: str - the title of the plot
+    y_max: float - the maximum value of the y axis
+    y_min: float - the minimum value of the y axis
+    x_max: float - the maximum value of the x axis
+    x_min: float - the minimum value of the x axis
+    reference_potential: str - the reference potential of the DOD data. This only modifies the y axis label
+    scan_direction: str - the scan direction of the CV data. This only modifies the title
+    cmap_option: cmc colormap - the colormap used to plot the DOD data. You can choose any colormap from cmcrameri.cm
+    
+    
+    """
     # get the number of collumns in DOD
     n = DOD_dataframe.shape[1]
     # get the color map
