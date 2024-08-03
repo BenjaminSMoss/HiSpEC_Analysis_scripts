@@ -22,8 +22,6 @@ release = '0.01'
 
 extensions = ['sphinx.ext.autodoc']
 
-# Mock imports for autodoc
-autodoc_mock_imports = ['alabaster', 'contourpy']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
