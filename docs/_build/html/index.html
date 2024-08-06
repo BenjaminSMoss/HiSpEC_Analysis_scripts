@@ -74,6 +74,29 @@
              
   <section id="spec-analysis-documentation">
 <h1>SpEC analysis documentation<a class="headerlink" href="#spec-analysis-documentation" title="Link to this heading"></a></h1>
+<p>This is the documentation for the SpEC class. To install the SpEC class:</p>
+<ol class="arabic simple" start="0">
+<li><p>Git clone and pull the SpEC repository into a folder on your computer</p></li>
+<li><p>create a new conda environment.</p></li>
+<li><p>run conda install pip</p></li>
+<li><p>From the cloned directory run pip install -r requirements.txt. This should install all packages needed. If this fails you can look at requirements.txt and manually install using pip or conda.</p></li>
+<li><p>import the package into your code as normal</p></li>
+</ol>
+<p>The package consists of two parts. Firstly, the SpEC class. This is the object that can be used to parse raw spectroscopic data into useful dataframes of spectroscopic data. Secondly the helper functions for plotting and calcualting differential aborbance from the parsed dataframes. The workflow of the package is as follows:</p>
+<ol class="arabic simple">
+<li><p>Create a new instance of a SpEC object</p></li>
+</ol>
+<p>Then run the following</p>
+<ol class="arabic simple" start="2">
+<li><p>SpEC.read_CV(path)</p></li>
+<li><p>SpEC.generate_interpolation_function()</p></li>
+<li><p>SpEC.read_Andorspec(path)</p></li>
+<li><p>SpEC.Calibrate_Andorspec()</p></li>
+<li><p>SpEC.populate_spec_scans()</p></li>
+<li><p>SpEC.populate_CV_scans()</p></li>
+<li><p>SpEC.Downsample_spec_scans(U_downsample, WL_downsample)</p></li>
+</ol>
+<p>The helper fucntions may then be called on the usefull spec_scans and CV_scans atttributes.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>

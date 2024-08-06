@@ -4,7 +4,7 @@ Bottleneck==1.3.7
 Brotli==1.0.9
 certifi==2024.7.4
 charset-normalizer==3.3.2
-cmcrameri==0.0.0
+cmcrameri==1.9
 contourpy==1.2.0
 cycler==0.11.0
 dill==0.3.8
