@@ -61,11 +61,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.calculateDOD"><code class="docutils literal notranslate"><span class="pre">calculateDOD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.calculate_differential_spectra"><code class="docutils literal notranslate"><span class="pre">calculate_differential_spectra()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.change_directory_to_new_expt"><code class="docutils literal notranslate"><span class="pre">change_directory_to_new_expt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.downsample_spectra_for_differential_analysis"><code class="docutils literal notranslate"><span class="pre">downsample_spectra_for_differential_analysis()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.normalise_DOD"><code class="docutils literal notranslate"><span class="pre">normalise_DOD()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.plot_DOD"><code class="docutils literal notranslate"><span class="pre">plot_DOD()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.sawtooth2"><code class="docutils literal notranslate"><span class="pre">sawtooth2()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.select_file_path"><code class="docutils literal notranslate"><span class="pre">select_file_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.select_spectrum_at_nearest_voltage"><code class="docutils literal notranslate"><span class="pre">select_spectrum_at_nearest_voltage()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -257,9 +260,31 @@ smooth_strength: int - the strength of the smoothing function. If set to 0 the f
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.calculate_differential_spectra">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">calculate_differential_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_strength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Normalise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.calculate_differential_spectra" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and a voltage step. 
+It uses the downsample_spectra_for_differential_analysis 
+function to extract the spectra at every voltage step.
+It then applies np.diff on the collumns of the downsampled dataframe.
+If the smooth_strength is greater than 0 it applies a 
+savgol filter to the data of the desired strength. If Normalise is set to True
+the function normalises the data to the maximum value of each collumn.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SEC_Class.change_directory_to_new_expt">
 <span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">change_directory_to_new_expt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.change_directory_to_new_expt" title="Link to this definition"></a></dt>
 <dd><p>Helper function to bring up a dialoge box to change the current working directory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.downsample_spectra_for_differential_analysis">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">downsample_spectra_for_differential_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.downsample_spectra_for_differential_analysis" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and a dataframe of spectra every voltage
+step using the select_spectrum_at_nearest_voltage function. The function returns a downsampled dataframe</p>
+<p>inputs: DOD_dataframe - a downsamples dataframe converted to Delta O.D
+voltage_step - the voltage step you want to extract every spectrum at</p>
+<p>outputs: a downsampled dataframe</p>
 </dd></dl>
 
 <dl class="py function">
@@ -300,6 +325,19 @@ offset: Y offset of the wave</p>
 <span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">select_file_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.select_file_path" title="Link to this definition"></a></dt>
 <dd><p>This is the base function to select a file, it opens a prompt and returns
 a path obect.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.select_spectrum_at_nearest_voltage">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">select_spectrum_at_nearest_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.select_spectrum_at_nearest_voltage" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and selects the spectrum
+at the nearest voltage to the voltage given. 
+The function returns a single spectrum as a dataframe</p>
+<blockquote>
+<div><p>inputs: DOD_dataframe - a downsamples dataframe converted to Delta O.D
+voltage - the voltage you want to select the spectrum at</p>
+<p>outputs: a single spectrum as a dataframe</p>
+</div></blockquote>
 </dd></dl>
 
 </section>
