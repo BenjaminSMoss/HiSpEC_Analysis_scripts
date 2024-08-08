@@ -869,7 +869,96 @@ if __name__ == "__main__":
                 scan_direction=key2,
             )
 
-""" for key, value in SpEC1.spec_scans_downsampled.items():
-        for key2, value2 in value.items():
-            temp, ref =calculateDOD(SpEC1, key, key2, 1, 11)
-            _,_= plot_DOD(temp, Title=f'Cycle {key} {key2}', y_max=0.1, y_min=-0.1, x_min=400, x_max=800, reference_potential=ref)"""
+
+def select_spectrum_at_nearest_voltage(
+        DOD_dataframe: pd.DataFrame,
+        voltage: float
+):
+    """This function takes in a DOD dataframe and selects the spectrum
+      at the nearest voltage to the voltage given. 
+      The function returns a single spectrum as a dataframe
+      
+        inputs: DOD_dataframe - a downsamples dataframe converted to Delta O.D
+        voltage - the voltage you want to select the spectrum at
+
+        outputs: a single spectrum as a dataframe
+      """
+    # get the number of collumns in DOD
+    n = DOD_dataframe.shape[1]
+    # get the color map
+
+    voltages = DOD_dataframe.columns.values
+    nearest_potential_index = np.argsort(np.abs((voltages - voltage)))[0]
+
+    return DOD_dataframe.iloc[:, nearest_potential_index]
+
+def downsample_spectra_for_differential_analysis(
+        DOD_dataframe: pd.DataFrame,
+        voltage_step: float):
+    """
+    This function takes in a DOD dataframe and a dataframe of spectra every voltage
+    step using the select_spectrum_at_nearest_voltage function. The function returns a downsampled dataframe
+
+    inputs: DOD_dataframe - a downsamples dataframe converted to Delta O.D
+    voltage_step - the voltage step you want to extract every spectrum at
+
+    outputs: a downsampled dataframe
+    """
+
+    voltages = DOD_dataframe.columns.values
+
+    # create a list of the voltages you want to extract the spectra at
+
+    voltages_to_extract = np.arange(voltages.min(), voltages.max(), voltage_step)
+
+    # create an empty dictionary to store the spectra and their voltages
+
+    spectra_dict = {}
+
+    # iterate through the voltages to extract the spectra
+
+    for voltage in voltages_to_extract:
+        spectra_dict[voltage] = select_spectrum_at_nearest_voltage(DOD_dataframe, voltage)
+
+    # convert the dictionary to a dataframe
+
+    downsampled_spectra = pd.DataFrame(spectra_dict)
+
+    return downsampled_spectra
+
+def calculate_differential_spectra(
+    DOD_dataframe: pd.DataFrame,
+    voltage_step: float,
+    smooth_strength: int = 0,
+    Normalise: bool = True,):
+    """
+    This function takes in a DOD dataframe and a voltage step. 
+    It uses the downsample_spectra_for_differential_analysis 
+    function to extract the spectra at every voltage step.
+    It then applies np.diff on the collumns of the downsampled dataframe.
+    If the smooth_strength is greater than 0 it applies a 
+    savgol filter to the data of the desired strength. If Normalise is set to True
+    the function normalises the data to the maximum value of each collumn.
+    """
+
+    downsampled_spectra = downsample_spectra_for_differential_analysis(DOD_dataframe, voltage_step)
+
+    # get the minimum value of the collumns of the downsampled dataframe
+
+    # min_U = downsampled_spectra.columns.min()
+
+    differential_spectra = downsampled_spectra.diff(axis=1)
+
+    
+
+    #insert a collumn of zeros with the same length as the first collumn of the dataframe   
+    #differential_spectra.insert(0, min_U, np.zeros(differential_spectra.shape[0]))
+    
+    if smooth_strength != 0:
+
+        differential_spectra = differential_spectra.apply(lambda x: signal.savgol_filter(x, smooth_strength, 3), axis=0)
+
+    if Normalise:
+        differential_spectra = normalise_DOD(differential_spectra)
+
+    return differential_spectra
