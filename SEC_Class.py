@@ -12,6 +12,7 @@ from tkinter import filedialog
 from pathlib import Path
 import cmcrameri.cm as cmc
 import matplotlib as mpl
+from scipy.interpolate import UnivariateSpline
 
 
 # to do - flip the plotting order in co-plot mode for the cathodic scan
@@ -108,7 +109,6 @@ class SpEC:
         x_data = CV["t_s"]
         y_data = CV["Ewe_V"]
         max_cycles = int(CV["Cycle"].max())
-        print(max_cycles)
         # Initial guess for the parameters [amplitude, phase], period is the max time
         initial_guess = [startin_samp, x_data.max() / max_cycles, starting_phase, starting_offset]
 
@@ -125,17 +125,6 @@ class SpEC:
         amplitude_fit, period_fit, phase_fit, offset_fit = popt
 
         # Print the fitted parameters
-        print(
-            f"""Fitted parameters saved to the interpolation attribute are:
-        Amplitude:{amplitude_fit}
-        Period:{period_fit}
-        Phase: {phase_fit} 
-        Offset: {offset_fit}
-        by passing (time_array, fitted parametes) you can interpolate t-->V
-        NOTE this function is only as accurate as the CV's sampling rate
-        by rounding the values to the parameters used you will get the best result 
-        """
-        )
 
         # Generate fitted data
         y_fit = sawtooth2(x_data, amplitude_fit, period_fit, phase_fit, offset_fit)
@@ -777,7 +766,6 @@ def Co_plot_DOD_and_CV(
     colors = cmap(np.linspace(0, 1, num_points))
  
 
-    print(CV.shape)
     for i in range(num_points - 2):
         if scan_direction is not None and scan_direction == "Anodic":
             ax[1].plot(CV.iloc[i : i + 2, 0], CV.iloc[i : i + 2, 1], color=colors[i])
@@ -833,41 +821,6 @@ def normalise_DOD(DOD_dataframe: pd.DataFrame, by_max: bool = True):
     DOD_normalised = DOD_dataframe.apply(normalise, axis=0)
 
     return DOD_normalised
-
-
-if __name__ == "__main__":
-    AndorPath = select_file_path()
-    CV_path = select_file_path()
-    print(AndorPath, "\n", CV_path)
-
-    SpEC1 = SpEC()
-    SpEC1.read_CV(CV_path)
-    SpEC1.generate_interpolation_function()
-    SpEC1.read_Andorspec(AndorPath)
-    SpEC1.Calibrate_Andorspec()
-    SpEC1.populate_spec_scans()
-    SpEC1.populate_CV_scans()
-    SpEC1.Downsample_spec_scans(0.005, 1)
-    test, ref = calculateDOD(SpEC1, 0, "Cathodic", -1, 11)
-
-    for key, value in SpEC1.CV_scans.items():
-        for key2, value2 in value.items():
-            CV = SpEC1.CV_scans[key][key2]
-            if key2 == "Anodic":
-                test, ref = calculateDOD(SpEC1, key, key2, -0.5, 51)
-            elif key2 == "Cathodic":
-                test, ref = calculateDOD(SpEC1, key, key2, 0.5, 51)
-            Co_plot_DOD_and_CV(
-                test,
-                CV,
-                Title=f"Cycle {key} {key2}",
-                y_max=0.001,
-                y_min=-0.001,
-                x_min=400,
-                x_max=800,
-                reference_potential=f"$ {ref}V_{{Ag/AgCl}}$",
-                scan_direction=key2,
-            )
 
 
 def select_spectrum_at_nearest_voltage(
@@ -962,3 +915,124 @@ def calculate_differential_spectra(
         differential_spectra = normalise_DOD(differential_spectra)
 
     return differential_spectra
+
+def fit_current_to_univariate_spline(
+        U: np.ndarray,
+        J: np.ndarray,
+        smoothing_factor: float = 0.000000001 
+    ):
+    """
+    This function takes in a voltage and current array
+      and fits a univariate spline to the data.
+    It plots the fit and the original data to compare 
+    and returns the spline object.
+
+    inputs: U - voltage array
+    J - current array
+    smoothing_factor - the smoothing factor of the spline
+    """
+
+    # create a univariate spline object
+
+    # Sort the data by voltage - this fixes any artifacts
+    sorted_indices = np.argsort(U)
+    U_sorted = U.iloc[sorted_indices]
+    J_sorted = J.iloc[sorted_indices]
+
+    # Fit the CV to a spline function
+    spl = UnivariateSpline(U_sorted, J_sorted)
+    spl.set_smoothing_factor(smoothing_factor)
+
+    # Plot the spline function
+    plt.plot(U_sorted, spl(U_sorted), 'r', lw=1)
+
+    # Plot the original data
+    plt.plot(U_sorted, J_sorted, 'b', lw=1) 
+    plt.xlabel('Voltage (E)')
+    plt.ylabel('Current (J)')
+    plt.title('CV Spline Fit')
+    # set the x range from -0.2 to 1.5
+    plt.xlim(-0.2, 1.5)
+
+    return spl
+
+def iR_correct_spectrum(
+        DOD_dataframe: pd.DataFrame,
+        J: np.ndarray,
+        U: np.ndarray,
+        Cell_resistance: float):
+    """
+    This function takes in a DOD dataframe alongside the operando current
+    voltage curve for that scan. The function uses the fit_current_to_univariate_spline
+    function to interpolate the potential in the collumn names of the DOD dataframe
+    to a current. This value can then then be iR corrected by corrected U = U - iR
+
+    inputs: DOD_dataframe - a downsampled dataframe converted to Delta O.D for a linear sweep
+    J - the current array for the scan
+    U - the voltage array for the scan
+    Cell_resistance - the cell resistance in ohms
+    """
+
+    # get the voltage values of the DOD dataframe
+
+    voltages = DOD_dataframe.columns.values
+
+    # fit the current to a spline function
+
+    spl = fit_current_to_univariate_spline(U, J)
+
+    # interpolate the potential values of the DOD dataframe to a current
+
+    I = spl(voltages.astype(float))
+
+    # calculate the iR drop
+
+    iR = I * Cell_resistance
+
+    # correct the potential values of the DOD dataframe
+
+    corrected_U = voltages - iR
+
+    # create a new dataframe with the corrected potential values
+
+    corrected_DOD = DOD_dataframe.copy(deep=True)
+
+    corrected_DOD.columns = corrected_U
+
+    return DOD_dataframe
+
+def extract_average_spectrum_in_voltage_window(
+        DOD_dataframe: pd.DataFrame,
+        voltage_window_lower: float,
+        voltage_window_upper: float
+        ):
+    """
+    This function takes in a DOD dataframe and uses pandas groupby operations to average
+    collumns whose collumn names fall within the voltage window. The function returns an
+
+    inputs: DOD_dataframe - a downsampled dataframe converted to Delta O.D for a linear sweep
+    voltage_window - a tuple of the minimum and maximum voltage values you want to average over
+
+    outputs: an averaged spectrum as a dataframe
+    """
+
+    # get the voltage values of the DOD dataframe
+
+    voltages = DOD_dataframe.columns.values
+
+    # create a boolean array of the voltages that fall within the voltage window
+
+    mask = (voltages >= voltage_window_lower) & (voltages <= voltage_window_upper)
+
+    # extract the data that falls within the voltage window
+
+    data = DOD_dataframe.iloc[:, mask].mean(axis=1)
+
+    return data
+
+
+
+
+
+
+    
