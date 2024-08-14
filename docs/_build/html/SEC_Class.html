@@ -64,6 +64,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.calculate_differential_spectra"><code class="docutils literal notranslate"><span class="pre">calculate_differential_spectra()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.change_directory_to_new_expt"><code class="docutils literal notranslate"><span class="pre">change_directory_to_new_expt()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.downsample_spectra_for_differential_analysis"><code class="docutils literal notranslate"><span class="pre">downsample_spectra_for_differential_analysis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.extract_average_spectrum_in_voltage_window"><code class="docutils literal notranslate"><span class="pre">extract_average_spectrum_in_voltage_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.fit_current_to_univariate_spline"><code class="docutils literal notranslate"><span class="pre">fit_current_to_univariate_spline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SEC_Class.iR_correct_spectrum"><code class="docutils literal notranslate"><span class="pre">iR_correct_spectrum()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.normalise_DOD"><code class="docutils literal notranslate"><span class="pre">normalise_DOD()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.plot_DOD"><code class="docutils literal notranslate"><span class="pre">plot_DOD()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#SEC_Class.sawtooth2"><code class="docutils literal notranslate"><span class="pre">sawtooth2()</span></code></a></li>
@@ -104,20 +107,25 @@
 <span id="sec-class-module"></span><h1>SEC_Class module<a class="headerlink" href="#module-SEC_Class" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="SEC_Class.Co_plot_DOD_and_CV">
-<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Co_plot_DOD_and_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Title:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_potential:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_direction:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_option=&lt;matplotlib.colors.ListedColormap</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Co_plot_DOD_and_CV" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">Co_plot_DOD_and_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CV_dataframe:</span> <span class="pre">~pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Title:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_min:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_potential:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_direction:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_option=&lt;matplotlib.colors.ListedColormap</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colour_bar_label:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_electrode_name:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">referance_electrode_correction:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.Co_plot_DOD_and_CV" title="Link to this definition"></a></dt>
 <dd><p>This function can be used to make inital co-plots of DOD and linear sweep data. It generates a plot.</p>
 <p>args: 
 DOD_dataframe: pd.DataFrame - a single dataframe from the spec_scans_downsampled attribute of the SpEC object
 CV_dataframe: pd.DataFrame - a single dataframe from the CV_scans attribute of the SpEC object. Must be the same 
 cycle and scan direction as the chosen DOD_dataframe
 Title: str - the title of the plot
-y_max: float - the maximum value of the y axis
-y_min: float - the minimum value of the y axis
-x_max: float - the maximum value of the x axis
-x_min: float - the minimum value of the x axis
+y_max: float - the maximum value of the O.D axis
+y2_max: float - the maximum value of the current axis
+y_min: float - the minimum value of the O.D axis
+y2_min: float - the minimum value of the current axis
+x_max: float - the maximum value of the wavelength axis
+x_min: float - the minimum value of the wavelength axis
 reference_potential: str - the reference potential of the DOD data. This only modifies the y axis label
 scan_direction: str - the scan direction of the CV data. This only modifies the title
-cmap_option: cmc colormap - the colormap used to plot the DOD data. You can choose any colormap from cmcrameri.cm</p>
+cmap_option: cmc colormap - the colormap used to plot the DOD data. You can choose any colormap from cmcrameri.cm
+colour_bar_label: str - the label of the colour bar
+ref_electrode_name: str - the name of the reference electrode
+referance_electrode_correction: float - the correction factor for the referance electrode if needed</p>
 </dd></dl>
 
 <dl class="py function">
@@ -285,6 +293,43 @@ step using the select_spectrum_at_nearest_voltage function. The function returns
 <p>inputs: DOD_dataframe - a downsamples dataframe converted to Delta O.D
 voltage_step - the voltage step you want to extract every spectrum at</p>
 <p>outputs: a downsampled dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.extract_average_spectrum_in_voltage_window">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">extract_average_spectrum_in_voltage_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_window_lower</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_window_upper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.extract_average_spectrum_in_voltage_window" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe and uses pandas groupby operations to average
+collumns whose collumn names fall within the voltage window. The function returns an</p>
+<p>inputs: DOD_dataframe - a downsampled dataframe converted to Delta O.D for a linear sweep
+voltage_window - a tuple of the minimum and maximum voltage values you want to average over</p>
+<p>outputs: an averaged spectrum as a dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.fit_current_to_univariate_spline">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">fit_current_to_univariate_spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothing_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.fit_current_to_univariate_spline" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>This function takes in a voltage and current array</dt><dd><p>and fits a univariate spline to the data.</p>
+</dd>
+</dl>
+<p>It plots the fit and the original data to compare 
+and returns the spline object.</p>
+<p>inputs: U - voltage array
+J - current array
+smoothing_factor - the smoothing factor of the spline</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SEC_Class.iR_correct_spectrum">
+<span class="sig-prename descclassname"><span class="pre">SEC_Class.</span></span><span class="sig-name descname"><span class="pre">iR_correct_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DOD_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cell_resistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SEC_Class.iR_correct_spectrum" title="Link to this definition"></a></dt>
+<dd><p>This function takes in a DOD dataframe alongside the operando current
+voltage curve for that scan. The function uses the fit_current_to_univariate_spline
+function to interpolate the potential in the collumn names of the DOD dataframe
+to a current. This value can then then be iR corrected by corrected U = U - iR</p>
+<p>inputs: DOD_dataframe - a downsampled dataframe converted to Delta O.D for a linear sweep
+J - the current array for the scan
+U - the voltage array for the scan
+Cell_resistance - the cell resistance in ohms</p>
 </dd></dl>
 
 <dl class="py function">

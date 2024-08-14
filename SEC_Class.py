@@ -681,12 +681,17 @@ def Co_plot_DOD_and_CV(
     CV_dataframe: pd.DataFrame,
     Title: Optional[str] = None,
     y_max: Optional[float] = None,
+    y2_max: Optional[float] = None,
     y_min: Optional[float] = None,
+    y2_min: Optional[float] = None,
     x_max: Optional[float] = None,
     x_min: Optional[float] = None,
     reference_potential: Optional[str] = None,
     scan_direction: Optional[str] = None,
     cmap_option = cmc.roma,
+    colour_bar_label: Optional[str] = None,
+    ref_electrode_name: Optional[str] = None,
+    referance_electrode_correction: Optional[float] = None,
 ):
     """This function can be used to make inital co-plots of DOD and linear sweep data. It generates a plot.
 
@@ -695,16 +700,30 @@ def Co_plot_DOD_and_CV(
     CV_dataframe: pd.DataFrame - a single dataframe from the CV_scans attribute of the SpEC object. Must be the same 
     cycle and scan direction as the chosen DOD_dataframe
     Title: str - the title of the plot
-    y_max: float - the maximum value of the y axis
-    y_min: float - the minimum value of the y axis
-    x_max: float - the maximum value of the x axis
-    x_min: float - the minimum value of the x axis
+    y_max: float - the maximum value of the O.D axis
+    y2_max: float - the maximum value of the current axis
+    y_min: float - the minimum value of the O.D axis
+    y2_min: float - the minimum value of the current axis
+    x_max: float - the maximum value of the wavelength axis
+    x_min: float - the minimum value of the wavelength axis
     reference_potential: str - the reference potential of the DOD data. This only modifies the y axis label
     scan_direction: str - the scan direction of the CV data. This only modifies the title
     cmap_option: cmc colormap - the colormap used to plot the DOD data. You can choose any colormap from cmcrameri.cm
+    colour_bar_label: str - the label of the colour bar
+    ref_electrode_name: str - the name of the reference electrode
+    referance_electrode_correction: float - the correction factor for the referance electrode if needed
     
     
     """
+
+    if referance_electrode_correction != None:
+
+        correction=referance_electrode_correction
+
+    else:
+        correction=0
+    
+
     # get the number of collumns in DOD
     n = DOD_dataframe.shape[1]
     # get the color map
@@ -717,27 +736,31 @@ def Co_plot_DOD_and_CV(
     colors = cmap_option(colors)
 
     fig, ax = plt.subplots(2, 1)
+
     for i in range(n):
         ax[0].plot(
             DOD_dataframe.index, DOD_dataframe.iloc[:, i], color=colors[i], linewidth=2
         )
 
-    v_min = DOD_dataframe.columns.min()
-    v_max = DOD_dataframe.columns.max()
+    v_min = DOD_dataframe.columns.min()+correction
+    v_max = DOD_dataframe.columns.max()+correction
     # Normalize the color map
-    norm = mpl.colors.Normalize(vmin=v_min, vmax=v_max)
+    norm = mpl.colors.Normalize(vmin=v_min+correction, vmax=v_max+correction)
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
 
     # Add the colorbar to the figure
-    fig.colorbar(sm, ax=ax[0], label="$U (V) $")
+    if colour_bar_label == None:
+        fig.colorbar(sm, ax=ax[0], label="$U (V) $")
+    else:
+        fig.colorbar(sm, ax=ax[0], label=colour_bar_label)
 
     ax[0].set_xlabel("Wavelength (nm)", fontsize=12)
     # set the y label to f"$\Delta$A (O.D. vs {reference_potential} V)" if reference_potential is not None else f"$\Delta$A (O.D.)"
     ax[0].set_ylabel(
         (
             f"$\Delta$A (O.D. vs {reference_potential})"
-            if reference_potential is not None
+            if reference_potential is None
             else f"$\Delta$A (O.D.)"
         ),
         fontsize=12,
@@ -768,13 +791,16 @@ def Co_plot_DOD_and_CV(
 
     for i in range(num_points - 2):
         if scan_direction is not None and scan_direction == "Anodic":
-            ax[1].plot(CV.iloc[i : i + 2, 0], CV.iloc[i : i + 2, 1], color=colors[i])
+            ax[1].plot(CV.iloc[i : i + 2, 0]+correction, CV.iloc[i : i + 2, 1], color=colors[i])
         elif scan_direction is not None and scan_direction == "Cathodic":
-            ax[1].plot(CV.iloc[i : i + 2, 0], CV.iloc[i : i + 2, 1], color=colors[-i])
+            ax[1].plot(CV.iloc[i : i + 2, 0]+correction, CV.iloc[i : i + 2, 1], color=colors[-i])
 
-    ax[1].set_xlabel("U (V)", fontsize=12)
+    ax[1].set_xlabel("U ($V$)", fontsize=12)
 
-    ax[1].set_ylabel("I (A)", fontsize=12)
+    if y2_min is not None and y2_max is not None:
+        ax[1].set_ylim(top=y2_max, bottom=y2_min)
+
+    ax[1].set_ylabel("J (A$cm^{2}$)", fontsize=12)
     if scan_direction is not None and scan_direction == "Anodic":
         ax[1].annotate(
             "Scan direction",
