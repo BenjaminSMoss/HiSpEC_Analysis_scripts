@@ -70,7 +70,7 @@ class SpEC:
         self.CV = self.CV.drop(self.CV.columns[0], axis=1)
         # make the 'Cycl' collumn of type int
         try:
-            self.CV["Cycle"] = self.CV["Cycle"].astype(int)
+            self.CV["Cycle"] = self.CV["cycle"].astype(int)
         except ValueError as e:
             print('The CV file does not have a "Cycle" column, please check this data')
             raise e
@@ -78,7 +78,8 @@ class SpEC:
         return (self.CV,)
 
     def generate_interpolation_function(
-        self, startin_samp: float = 1, starting_phase: float = 0, starting_offset: float = 0
+        self, startin_samp: float = 1, starting_phase: float = 0, starting_offset: float = 0,
+        biologic: bool = True
     ):
         """
         This function works on an instance of the SpEC class where read_CV has been run.
@@ -109,6 +110,9 @@ class SpEC:
         x_data = CV["t_s"]
         y_data = CV["Ewe_V"]
         max_cycles = int(CV["Cycle"].max())
+        print(max_cycles)
+        if biologic:
+            max_cycles = max_cycles + 1
         # Initial guess for the parameters [amplitude, phase], period is the max time
         initial_guess = [startin_samp, x_data.max() / max_cycles, starting_phase, starting_offset]
 
@@ -202,6 +206,7 @@ class SpEC:
 
         # group the CV by cycle
         grouped = CV.groupby(["Cycle"])
+        print(grouped)
         # iterate through each cycle
 
         for i, group in grouped:
@@ -308,7 +313,7 @@ class SpEC:
 
         cycle_dict = {}
 
-        for i in range(int(self.CV["Cycle"].max())):
+        for i in range(int(self.CV["Cycle"].max()+1)):
             try:
                 temp = self.CV.groupby(["Cycle"]).get_group((i,))
             except Exception as e:
