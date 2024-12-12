@@ -54,9 +54,9 @@ class SpEC:
             spec_scans_downsampled if spec_scans_downsampled is not None else {}
         )
 
-    def read_CV(self, CV_file_path: Path):
+    def read_CV(self, CV_file_path: Path, biologic: bool = True):
         """ 
-        This function reads in csv files for CVs with headers defined by Gamry and HELAO (i.e. HiSPEC CVs).
+        This function reads in CVs with headers defined by Gamry and HELAO (i.e. HiSPEC CVs). 
         Given a file path to a CV file, which can be obtained by using the select_file_path helper function
         or manually inputting the file path as a Path object, the function reads
         the file and populates the CV attribute of the SpEC object.
@@ -70,7 +70,10 @@ class SpEC:
         self.CV = self.CV.drop(self.CV.columns[0], axis=1)
         # make the 'Cycl' collumn of type int
         try:
-            self.CV["Cycle"] = self.CV["cycle"].astype(int)
+            if biologic:
+                self.CV["Cycle"] = self.CV["cycle"].astype(int)
+            else:
+                self.CV["Cycle"] = self.CV["Cycle"].astype(int)
         except ValueError as e:
             print('The CV file does not have a "Cycle" column, please check this data')
             raise e
@@ -300,7 +303,7 @@ class SpEC:
         self.spec_scans = cycle_dict
         return self.spec_scans
 
-    def populate_CV_scans(self):
+    def populate_CV_scans(self, biologic: bool = True):
         """Like populate spec scans this function uses the derivative of the interpolation function to determine the scan direction
         of the CV data and add this to the CV. It then groups the CV data by cycle and scan direction.
         It then populates the CV_scans attribute of the SpEC object with a dictionary of dictionaries.
@@ -312,8 +315,12 @@ class SpEC:
         """
 
         cycle_dict = {}
+        if biologic:
+            max_cycle_value = self.CV["Cycle"].max()+1
+        else:
+            max_cycle_value = self.CV["Cycle"].max()    
 
-        for i in range(int(self.CV["Cycle"].max()+1)):
+        for i in range(int(max_cycle_value)):
             try:
                 temp = self.CV.groupby(["Cycle"]).get_group((i,))
             except Exception as e:
